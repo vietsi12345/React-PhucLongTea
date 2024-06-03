@@ -2,6 +2,7 @@ import React from 'react'
 import "./Home.css"
 import { MultiItemCarousel } from './MultiItemCarousel'
 import { RestaurantCard } from '../Restaurant/RestaurantCard'
+import { Auth } from '../Auth/Auth'
 
 export const Home = () => {
     const restaurant = [1, 2, 3, 4, 5, 6, 7, 8]
