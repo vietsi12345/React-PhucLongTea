@@ -8,7 +8,8 @@ import RestaurantDetail from './component/Restaurant/RestaurantDetail';
 import Cart from './component/Cart/Cart';
 import Profile from './component/Profile/Profile';
 import { CustomerRouter } from './Routers/CustomerRouter';
-
+import { Routers } from './Routers/Routers';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
       {/* <RestaurantDetail /> */}
       {/* <Cart /> */}
       {/* <Profile /> */}
-      <CustomerRouter />
+      <Routers />
     </ThemeProvider >
   );
 }

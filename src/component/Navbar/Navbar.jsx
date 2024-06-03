@@ -21,9 +21,10 @@ export const Navbar = () => {
                     </IconButton>
                 </div>
                 <div className=''>
+                    <a href='http://localhost:3000/admin/restaurant' className='link-to-admin' >
                     <Avatar sx={{ bgcolor: "white", color: pink.A400 }}>
                         C
-                    </Avatar>
+                    </Avatar></a>
                 </div>
                 <div className=''>
                     <IconButton>
