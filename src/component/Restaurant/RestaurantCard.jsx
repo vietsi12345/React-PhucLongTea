@@ -2,28 +2,47 @@ import { Card, Chip, IconButton } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToFavorite } from '../State/authentication/Action';
+import { isPresentInFavorites } from '../Config/logic';
 
-export const RestaurantCard = () => {
+export const RestaurantCard = ({ item }) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const jwt = localStorage.getItem('jwt')
+    const { auth } = useSelector(store => store)
+
+    const handleAddToFavorite = () => {
+        dispatch(addToFavorite({ restaurant_id: item.id, jwt }))
+    }
+
+    const handleNavigateToRestaurantDetail = () => {
+        if (item.open) {
+            navigate(`/restaurant/${item.address.city}/${item.name}/${item.id}`)
+        }
+    }
+
     return (
         <Card className='w-[18rem]'>
             <div className={`${true ? 'cursor-pointer' : 'cursor-not-allowed'} relative`}>
                 <img className='w-full h-[10rem] rounded-t-md object-cover'
-                    src="https://lh5.googleusercontent.com/p/AF1QipOeiMhqkQ8jeKvOUbwXOmeQlm0dOn3LOvzCvzub=w143-h143-n-k-no" alt=""
+                    src={item.images[0]} alt=""
                 />
                 <Chip size="small"
                     className="absolute top-2 left-2"
-                    color={true ? 'success' : "error"}
-                    label={true ? "open" : "closed"}
+                    color={item.open ? 'success' : "error"}
+                    label={item.open ? "open" : "closed"}
                 />
             </div>
             <div className='p-4 textPart lg:flex w-full justify-between'>
                 <div className='space-y-1'>
-                    <p className='font-semibold text-lg'>Tên nhà hàng</p>
-                    <p className='text-gray-500 text-sm'>Đây là mô tả</p>
+                    <p onClick={handleNavigateToRestaurantDetail} className='font-semibold text-lg cursor-pointer'>{item.name}</p>
+                    <p className='text-gray-500 text-sm'>{item.description}</p>
                 </div>
                 <div>
-                    <IconButton>
-                        {true ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    <IconButton onClick={handleAddToFavorite}>
+                        {isPresentInFavorites(auth.favorites, item) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 </div>
             </div>

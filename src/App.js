@@ -11,15 +11,20 @@ import { CustomerRouter } from './Routers/CustomerRouter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUser } from './component/State/authentication/Action';
+
+import { findCart } from './component/State/Cart/Action';
 import {Routers} from './Routers/Routers'
 
-
 function App() {
-  const dispactch = useDispatch()
+  const dispatch = useDispatch()
   const jwt = localStorage.getItem('jwt')
+  // console.log('jwt', jwt)
   const { auth } = useSelector(store => store)
   useEffect(() => {
-    dispactch(getUser(auth.jwt || jwt))
+    if (jwt) {
+      dispatch(getUser(auth.jwt || jwt))
+      dispatch(findCart(jwt))
+    }
   }, [auth.jwt])
   // console.log('jwt', auth.jwt)
   return (
@@ -30,7 +35,7 @@ function App() {
       {/* <RestaurantDetail /> */}
       {/* <Cart /> */}
       {/* <Profile /> */}
-      <Routers />
+      <CustomerRouter />
     </ThemeProvider >
   );
 }

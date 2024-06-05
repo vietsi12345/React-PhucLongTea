@@ -4,6 +4,8 @@ import { CartItem } from './CartItem'
 import { AddressCart } from './AddressCart'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { createorder } from '../State/Order/Action';
 // import * as Yup from 'yup'
 
 export const style = {
@@ -34,6 +36,10 @@ const initialValues = {
 
 const items = [1, 2]
 const Cart = () => {
+
+    const { cart, auth } = useSelector(store => store)
+    const dispatch = useDispatch()
+    console.log(cart)
     const createOrderUsingAddress = () => {
 
     }
@@ -43,14 +49,36 @@ const Cart = () => {
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
     const handleSubmit = (values) => {
+        const data = {
+            jwt: localStorage.getItem('jwt'),
+            order: {
+                restaurantId: cart.cartItems[0].drink?.restaurant?.id,
+                deliveryAddress: {
+                    fullName: auth.user?.fullName,
+                    streetAddress: values.streetAddress,
+                    city: values.city,
+                    state: values.state,
+                    postalCode: values.pincode,
+                    country: "Việt Nam"
+                }
+            }
+        }
+        console.log("data ", data)
         console.log('form value: ', values)
+        dispatch(createorder(data))
     }
+
+    // Tính tổng của totalitem
+    const tong = cart.cartItems.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem?.totalPrice;
+    }, 0);
+
     return (
         <>
             <main className='lg:flex justify-between'>
                 <section className='lg:w-[30%] space-y-6 lg:min-h-screen pt-10'>
-                    {items.map((item, index) => (
-                        <CartItem key={index} />
+                    {cart.cartItems.map((item, index) => (
+                        <CartItem key={index} item={item} />
                     ))}
                     <Divider />
                     <div className='billDetails px-5 text-sm'>
@@ -58,7 +86,7 @@ const Cart = () => {
                         <div className='space-y-3'>
                             <div className='flex justify-between text-gray-400'>
                                 <p>Item total</p>
-                                <p>100000 VND</p>
+                                <p>{tong}</p>
                             </div>
                             <div className='flex justify-between text-gray-400'>
                                 <p>Deliver free</p>
@@ -72,7 +100,7 @@ const Cart = () => {
                         </div>
                         <div className='flex justify-between text-gray-400 pt-2'>
                             <p>Tổng tiền</p>
-                            <p>100 VND</p>
+                            <p>{tong + 100 + 100}</p>
                         </div>
                     </div>
                 </section>
