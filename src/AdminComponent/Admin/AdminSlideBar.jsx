@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 const menu = [
     {title:"Bảng điều khiển", icon:<Dashboard/>, path:"/"},
     {title:"Đơn hàng", icon:<ShoppingBag/>, path:"/orders"},
-    {title:"Menu", icon:<ShopTwoIcon/>, path:"/menus"},
+    {title:"Menu", icon:<ShopTwoIcon/>, path:"/menu"},
     {title:"Loại đồ ăn", icon:<Category/>, path:"/categorys"},
     {title:"Nguyên liệu", icon:<Fastfood/>, path:"/ingredients"},
     {title:"Sự kiện", icon:<Event/>, path:"/events"},
@@ -21,7 +21,7 @@ const menu = [
 export const AdminSlideBar = ({handleClose}) => {
     const isSmallScreen = useMediaQuery("(max-width:1080px)");
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
 
     // const handleNavigate=(item)=>{
