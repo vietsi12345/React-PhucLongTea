@@ -13,7 +13,9 @@ import { useEffect } from 'react';
 import { getUser } from './component/State/authentication/Action';
 
 import { findCart } from './component/State/Cart/Action';
-import {Routers} from './Routers/Routers'
+import { Routers } from './Routers/Routers'
+import { getRestaurantByUserId } from './component/State/Restaurant/Action';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -26,16 +28,26 @@ function App() {
       dispatch(findCart(jwt))
     }
   }, [auth.jwt])
+
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getRestaurantByUserId(auth.jwt || jwt))
+    }
+  }, [auth.jwt])
+
   // console.log('jwt', auth.jwt)
   return (
     <ThemeProvider theme={darkTheme}>
+
       <CssBaseline />
+      <Navbar />
       {/* <Navbar /> */}
       {/* <Home /> */}
       {/* <RestaurantDetail /> */}
       {/* <Cart /> */}
       {/* <Profile /> */}
-      <CustomerRouter />
+      {/* <CustomerRouter /> */}
+      <Routers />
     </ThemeProvider >
   );
 }
