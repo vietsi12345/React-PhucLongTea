@@ -1,4 +1,4 @@
-import { api } from "../../Config/Api";
+import { api } from '../../Config/api'
 import { CREATE_INGREDIENT_CATEGORY_SUCCESS, CREATE_INGREDIENT_SUCCESS, GET_INGREDIENT, GET_INGREDIENT_CATEGORY_SUCCESS, UPDATE_STOCK } from "./ActionType";
 
 export const getIngredientsOfRestaurant = ({ id, jwt }) => {
@@ -83,10 +83,10 @@ export const updateStockIngredient = ({ id, jwt }) => {
                     }
                 }
             )
-            console.log('getIngredientsOfRestaurant: ', response.data);
+            console.log('updateStockIngredient: ', response.data);
             dispatch({ type: UPDATE_STOCK, payload: response.data });
         } catch (error) {
-            console.log("Lỗi getIngredientsOfRestaurant ", error);
+            console.log("Lỗi updateStockIngredient ", error);
         }
     }
 }

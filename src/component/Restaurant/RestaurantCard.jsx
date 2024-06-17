@@ -38,7 +38,7 @@ export const RestaurantCard = ({ item }) => {
             <div className='p-4 textPart lg:flex w-full justify-between'>
                 <div className='space-y-1'>
                     <p onClick={handleNavigateToRestaurantDetail} className='font-semibold text-lg cursor-pointer'>{item.name}</p>
-                    <p className='text-gray-500 text-sm'>{item.description}</p>
+                    <p className='text-gray-500 text-sm text-ellipsis whitespace-nowrap overflow-hidden w-[225px] '>{item.description}</p>
                 </div>
                 <div>
                     <IconButton onClick={handleAddToFavorite}>

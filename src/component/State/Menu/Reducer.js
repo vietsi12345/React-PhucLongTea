@@ -2,10 +2,12 @@ import * as actionTypes from './ActionType'
 
 const initialState = {
     menuItems: [],
+    allDrinks: [],
     loading: false,
     error: null,
     search: [],
-    message: null
+    message: null,
+    drinksNotPromotion: []
 }
 
 const menuItemReducer = (state = initialState, action) => {
@@ -15,6 +17,9 @@ const menuItemReducer = (state = initialState, action) => {
         case actionTypes.DELETE_MENU_ITEM_REQUEST:
         case actionTypes.SEARCH_MENU_ITEM_REQUEST:
         case actionTypes.UPDATE_MENU_ITEM_AVALIABLE_REQUEST:
+        case actionTypes.GET_ALL_DRINK_OF_RESTAURANT_REQUEST:
+        case actionTypes.UPDATE_DISCOUNT_DRINK_REQUEST:
+        case actionTypes.GET_DRINK_NOT_PROMOTION_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -34,12 +39,36 @@ const menuItemReducer = (state = initialState, action) => {
                 loading: false,
                 menuItems: action.payload,
             }
+        case actionTypes.GET_DRINK_NOT_PROMOTION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                drinksNotPromotion: action.payload,
+            }
+        case actionTypes.GET_ALL_DRINK_OF_RESTAURANT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                allDrinks: action.payload,
+            }
+        case actionTypes.UPDATE_DISCOUNT_DRINK_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                allDrinks: state.allDrinks.map(
+                    (drink) => drink.id === action.payload.id ?
+                        action.payload : drink   // đang đợi thành sửa
+                ),
+            }
         case actionTypes.DELETE_MENU_ITEM_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 menuItems: state.menuItems.filter(
                     (menuItem) => menuItem.id !== action.payload
+                ),
+                allDrinks: state.allDrinks.filter(
+                    (drink) => drink.id !== action.payload
                 ),
             }
         case actionTypes.UPDATE_MENU_ITEM_AVALIABLE_SUCCESS:
@@ -50,6 +79,10 @@ const menuItemReducer = (state = initialState, action) => {
                 menuItems: state.menuItems.map(
                     (menuItem) => menuItem.id === action.payload.id ?
                         action.payload : menuItem
+                ),
+                allDrinks: state.allDrinks.map(
+                    (drink) => drink.id === action.payload.id ?
+                        action.payload : drink
                 ),
             }
         case actionTypes.SEARCH_MENU_ITEM_SUCCESS:
@@ -63,6 +96,9 @@ const menuItemReducer = (state = initialState, action) => {
         case actionTypes.DELETE_MENU_ITEM_FAILURE:
         case actionTypes.SEARCH_MENU_ITEM_FAILURE:
         case actionTypes.UPDATE_MENU_ITEM_AVALIABLE_FAILURE:
+        case actionTypes.GET_ALL_DRINK_OF_RESTAURANT_FAILURE:
+        case actionTypes.UPDATE_DISCOUNT_DRINK_FAILURE:
+        case actionTypes.GET_DRINK_NOT_PROMOTION_FAILURE:
             return {
                 ...state,
                 loading: false,

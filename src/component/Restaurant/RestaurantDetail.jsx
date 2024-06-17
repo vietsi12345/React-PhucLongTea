@@ -12,10 +12,10 @@ import { SecurityRounded } from '@mui/icons-material';
 
 
 const foodTypes = [
-    { label: 'All', value: 'all' },
-    { label: 'Vegeration only', value: 'vegeration' },
-    { label: 'Non-vegetirian', value: 'non_vegetirian' },
-    { label: 'Seasonal', value: 'seasonal' },
+    { label: 'Tất cả', value: 'all' },
+    { label: 'Có calo', value: 'vegeration' },
+    { label: 'Không calo', value: 'nonveg' },
+    { label: 'Theo mùa', value: 'seasonal' },
 ]
 
 const RestaurantDetail = () => {
@@ -48,7 +48,7 @@ const RestaurantDetail = () => {
             jwt,
             restaurantId: id,
             vagetarian: drinkType === "vegeration",
-            nonveg: drinkType === "nonvegeration",
+            nonveg: drinkType === "nonveg",
             seasonal: drinkType === "seasonal",
             drinkCategory: selectedCategory,
         }))
@@ -58,8 +58,7 @@ const RestaurantDetail = () => {
     return (
         <div className='px-5 lg:px-10'>
             <section>
-                <h3 className='text-gray-500 py-2 mt-10'>Home/india/indian fast food/3</h3>
-                <div>
+                <div className='pt-5'>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <img className='w-full h-[40vh] object-cover'
@@ -104,7 +103,7 @@ const RestaurantDetail = () => {
                     <div className='box space-y-5 lg:sticky top-28 '>
                         <div>
                             <Typography variant='h5' sx={{ paddingBottom: "1rem" }}>
-                                FoodType
+                                Phân loại
                             </Typography>
                             <FormControl className='py-10 space-y-5' component={"fieldset"}>
                                 <RadioGroup onChange={handleFilter} name='drink_type' value={drinkType}>
@@ -119,7 +118,7 @@ const RestaurantDetail = () => {
                         <Divider />
                         <div>
                             <Typography variant='h5' sx={{ paddingBottom: "1rem" }}>
-                                Food Categories
+                                Loại sản phẩm
                             </Typography>
                             <FormControl className='py-10 space-y-5' component={"fieldset"}>
                                 <RadioGroup onChange={handleFilterCategory}

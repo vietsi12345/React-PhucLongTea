@@ -4,12 +4,14 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Chip, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { findCart, removeCartItem, updateCartItem } from '../State/Cart/Action';
+import { formatMonneyVietNam } from '../Ultil/formatMonneyVietNam';
 
 export const CartItem = ({ item }) => {
     const dispatch = useDispatch()
     const jwt = localStorage.getItem('jwt')
 
     const handleUpdateCartItem = (value) => {
+        console.log(item.quantity, 'so luong')
         if (value === -1 && item.quantity === 1) {
             handleRemoveCartItem()
         }
@@ -49,7 +51,7 @@ export const CartItem = ({ item }) => {
                             </div>
                         </div>
                     </div>
-                    <p>{item.totalPrice}</p>
+                    <p>{formatMonneyVietNam(item.totalPrice)}</p>
                 </div>
             </div>
             <div className='pt-3 space-x-2'>

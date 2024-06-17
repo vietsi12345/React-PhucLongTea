@@ -6,7 +6,7 @@ import { Orders } from '../Orders/Orders'
 import { Menu } from '../Menu/Menu'
 import { FoodCategory } from '../FoodCategory/FoodCategory'
 import { Ingredients } from '../Ingredients/Ingredients'
-import { Event } from '../Event/Event'
+import { Events } from '../Event/Events'
 import { RestaurentDetail } from './RestaurentDetail'
 import { CreateMenuForm } from '../Menu/CreateMenuForm'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,7 +21,7 @@ export const Admin = () => {
   const dispatch = useDispatch()
   const jwt = localStorage.getItem('jwt')
   const { restaurant } = useSelector(store => store)
-  console.log(restaurant.usersRestaurant?.id)
+  // console.log(restaurant.usersRestaurant?.id)
   const handleClose = () => {
 
   }
@@ -47,7 +47,7 @@ export const Admin = () => {
             <Route path='/menu' element={<Menu />} />
             <Route path='/categorys' element={<FoodCategory />} />
             <Route path='/ingredients' element={<Ingredients />} />
-            {/* <Route path='/events' element={<Event/>}/> */}
+            <Route path='/events' element={<Events />} />
             <Route path='/details' element={<RestaurentDetail />} />
             <Route path='/add-menu' element={<CreateMenuForm />} />
           </Routes>

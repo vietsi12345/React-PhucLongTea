@@ -57,7 +57,7 @@ export const getAllRestaurantsAction = (token) => {
     }
 }
 
-export const getRestaurantById = (reqData) => {
+export const getRestaurantById = (reqData) => { //để cho khách hàng lấy thông tin nhà hàng
     return async (dispatch) => {
         dispatch({ type: GET_RESTAURANT_BY_ID_REQUEST });
         try {
@@ -75,7 +75,7 @@ export const getRestaurantById = (reqData) => {
     }
 }
 
-export const getRestaurantByUserId = (jwt) => {
+export const getRestaurantByUserId = (jwt) => { // để cho owner lấy thông tin nhà hàng
     return async (dispatch) => {
         dispatch({ type: GET_RESTAURANT_BY_USER_ID_REQUEST });
         try {
@@ -165,11 +165,11 @@ export const updateRestaurantStatus = ({ restaurantId, jwt }) => {
     }
 }
 
-export const createEventAction = ({ data, restaurantId, jwt }) => {
+export const createEventAction = ({ data, jwt }) => {
     return async (dispatch) => {
         dispatch({ type: CREATE_EVENTS_REQUEST });
         try {
-            const res = await api.post(`/api/admin/events/restaurant/${restaurantId}`, data, {
+            const res = await api.post(`/api/admin/promotion`, data, {
                 headers: {
                     Authorization: `Bearer ${jwt}`
                 }
@@ -183,11 +183,11 @@ export const createEventAction = ({ data, restaurantId, jwt }) => {
     }
 }
 
-export const getAllEvents = ({ jwt }) => {
+export const getAllEvents = (jwt) => {
     return async (dispatch) => {
         dispatch({ type: GET_ALL_EVENTS_REQUEST });
         try {
-            const res = await api.get(`/api/events`, {
+            const res = await api.get(`/api/admin/promotion/restaurant`, {
                 headers: {
                     Authorization: `Bearer ${jwt}`
                 }

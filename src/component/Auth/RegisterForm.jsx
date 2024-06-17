@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { loginUser, registerUser } from '../State/authentication/Action'
 
 const initialValues = {
-    fullname: "",
+    fullName: "",
     email: "",
     password: "",
     role: ""
@@ -18,7 +18,6 @@ export const RegisterForm = () => {
     const handleSubmit = (values) => {
         console.log(values)
         dispatch(registerUser({ userData: values, navigate }))
-
     }
     return (
         <div >
@@ -30,7 +29,7 @@ export const RegisterForm = () => {
                 <Form className='space-y-3'>
                     <Field
                         as={TextField}
-                        name='fullname'
+                        name='fullName'
                         label='Họ và tên'
                         fullWidth
                         variant='outlined'
@@ -70,7 +69,7 @@ export const RegisterForm = () => {
             </Formik>
             <Typography variant='body2' align='center' sx={{ mt: 3 }}>
                 Bạn đã có tài khoản?
-                <Button onClick={() => navigate('/account/login')}>Đăng ký</Button>
+                <Button onClick={() => navigate('/account/login')}>Đăng nhập</Button>
             </Typography>
         </div>
     )

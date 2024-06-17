@@ -10,7 +10,6 @@ import { Auth } from '../component/Auth/Auth'
 export const CustomerRouter = () => {
     return (
         <div>
-            <Navbar />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/account/:register' element={<Home />} />

@@ -1,26 +1,37 @@
-import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material'
+import { Card, CardActions, CardContent, CardMedia, Chip, IconButton, Typography } from '@mui/material'
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
+import { formatMonneyVietNam } from '../Ultil/formatMonneyVietNam';
 
-export const EventCard = () => {
+export const EventCard = ({ item }) => {
+
     return (
         <div>
             <Card sx={{ width: 345 }}>
                 <CardMedia
-                    sx={{ height: 250 }}
-                    image='https://image.dienthoaivui.com.vn/x,webp,q100/https://dashboard.dienthoaivui.com.vn/uploads/wp-content/uploads/images/meme-tet-thumbnail.jpg'
-                />
-                <CardContent>
+                    sx={{ height: 250, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                >
+                    <img
+                        src='https://img.pikbest.com/png-images/marketing-promoting-icon--vector-graphics_1780711.png!f305cw'
+                        alt='Promotion'
+                        style={{ height: '100%', width: 'auto', objectFit: 'contain' }}
+                    />
+                </CardMedia>
+                <CardContent className='flex flex-col items-center gap-4'>
                     <Typography variant='h5' >
-                        Sự kiện miễn phí
+                        {item.name}
                     </Typography>
                     <Typography variant='body2' >
-                        Giảm giá 20% toàn bộ sản phẩm có đường
+                        {item.description}
                     </Typography>
-                    <div className='pt-2 space-y-2'>
-                        <p>Quận 9</p>
-                        <p className='text-sm text-blue-500'>Thứ 6, 13-02-2024</p>
-                        <p className='text-sm text-red-500'>Thứ 7, 14-02-2024</p>
+                    <div className='pt-2 space-y-2 flex flex-col items-center'>
+                        <p>{formatMonneyVietNam(item.price)}</p>
+                        <p className='text-base text-blue-500'>{`Ngày bắt đầu: ${item.startDate} AM`}</p>
+                        <p className='text-base text-red-500'>{`Ngày kết thúc: ${item.endDate} PM`}</p>
+                    </div>
+                    <div className=' flex flex-col gap-3'>
+                        <p>Các sản phẩm được áp dụng: </p>
+                        {item.drinks.map((drink, index) => <Chip label={drink.name} key={index} />)}
                     </div>
                 </CardContent>
 

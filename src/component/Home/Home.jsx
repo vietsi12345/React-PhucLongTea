@@ -35,11 +35,11 @@ export const Home = () => {
                 </div>
             </section>
             <section className='p-10 lg:py-10 lg:px-20'>
-                <p className='text-2xl font-semibold text-gray-400 py-3 pb-10'>Top đồ uống</p>
+                <p className='text-2xl font-semibold text-gray-400 py-3 pb-10'>Top sản phẩm</p>
                 <MultiItemCarousel />
             </section>
             <section className='px-5 lg:px-20 pt-5'>
-                <h1 className='text-2xl font-semibold text-gray-400 py-3 pb-10'>Danh sách nhà hàng được yêu thích</h1>
+                <h1 className='text-2xl font-semibold text-gray-400 py-3 pb-10'>Danh sách cửa hàng</h1>
                 <div className='flex flex-wrap items-center justify-around gap-5'>
                     {
                         restaurant.restaurants.map((item, index) => (

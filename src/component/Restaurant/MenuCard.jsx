@@ -5,6 +5,7 @@ import { categoriezIngredients } from '../Ultil/categoriezIngredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart, findCart } from '../State/Cart/Action';
 import { getMenuItemsByRestaurantId } from '../State/Menu/Action';
+import { formatMonneyVietNam } from '../Ultil/formatMonneyVietNam';
 
 export const MenuCard = ({ item, restaurantId, vagetarian, nonveg, seasonal, drinkCategory }) => {
     const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -31,7 +32,7 @@ export const MenuCard = ({ item, restaurantId, vagetarian, nonveg, seasonal, dri
             },
         };
         dispatch(addItemToCart(reqData));
-        dispatch(findCart(reqData.token)); // cập nhật lại giỏ hàng 
+        // dispatch(findCart(reqData.token)); // cập nhật lại giỏ hàng 
         // dispatch(getMenuItemsByRestaurantId({
         //     jwt: reqData.token,
         //     restaurantId: restaurantId,
@@ -43,7 +44,7 @@ export const MenuCard = ({ item, restaurantId, vagetarian, nonveg, seasonal, dri
 
         // console.log('reqData', reqData);
         // Load lại trang sau khi thêm vào giỏ hàng
-        // window.location.reload();
+        window.location.reload();
     };
 
     return (
@@ -58,7 +59,7 @@ export const MenuCard = ({ item, restaurantId, vagetarian, nonveg, seasonal, dri
                         <img className='w-[7rem] h-[7rem] object-cover' src={item.images[0]} />
                         <div className='space-y-1 lg:space-y-5 lg:max-w-2xl'>
                             <p className='font-semibold text-xl'>{item.name}</p>
-                            <p>{item.price}</p>
+                            <p>{formatMonneyVietNam(item.price)}</p>
                             <p className='text-gray-400'>{item.description}</p>
                         </div>
                     </div>

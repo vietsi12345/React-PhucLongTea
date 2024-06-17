@@ -6,6 +6,7 @@ import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { createorder } from '../State/Order/Action';
+import { formatMonneyVietNam } from '../Ultil/formatMonneyVietNam';
 // import * as Yup from 'yup'
 
 export const style = {
@@ -49,23 +50,33 @@ const Cart = () => {
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
     const handleSubmit = (values) => {
-        const data = {
-            jwt: localStorage.getItem('jwt'),
-            order: {
-                restaurantId: cart.cartItems[0].drink?.restaurant?.id,
-                deliveryAddress: {
-                    fullName: auth.user?.fullName,
-                    streetAddress: values.streetAddress,
-                    city: values.city,
-                    state: values.state,
-                    postalCode: values.pincode,
-                    country: "Việt Nam"
+        if (values.streetAddress &&
+            values.city &&
+            values.state &&
+            values.pincode
+        ) {
+            const data = {
+                jwt: localStorage.getItem('jwt'),
+                order: {
+                    restaurantId: cart.cartItems[0].drink?.restaurant?.id,
+                    deliveryAddress: {
+                        // fullName: auth.user?.fullName,
+                        streetAddress: values.streetAddress,
+                        city: values.city,
+                        stateProvice: values.state,
+                        postalCode: values.pincode,
+                        county: "Việt Nam"
+                    }
                 }
             }
+            console.log("data ", data)
+            console.log('form value: ', values)
+            dispatch(createorder(data))
+            alert("Tạo đơn hàng thành công")
         }
-        console.log("data ", data)
-        console.log('form value: ', values)
-        dispatch(createorder(data))
+        else {
+            alert("Vui lòng điền đầy đủ thông tin")
+        }
     }
 
     // Tính tổng của totalitem
@@ -86,21 +97,21 @@ const Cart = () => {
                         <div className='space-y-3'>
                             <div className='flex justify-between text-gray-400'>
                                 <p>Item total</p>
-                                <p>{tong}</p>
+                                <p>{formatMonneyVietNam(tong)}</p>
                             </div>
                             <div className='flex justify-between text-gray-400'>
-                                <p>Deliver free</p>
-                                <p>100 VND</p>
+                                <p>Phí vận chuyển</p>
+                                <p>19.000 VND</p>
                             </div>
                             <div className='flex justify-between text-gray-400'>
-                                <p>Thuees</p>
-                                <p>100 VND</p>
+                                <p>Thuế</p>
+                                <p>1000 VND</p>
                             </div>
                             <Divider />
                         </div>
                         <div className='flex justify-between text-gray-400 pt-2'>
                             <p>Tổng tiền</p>
-                            <p>{tong + 100 + 100}</p>
+                            <p>{formatMonneyVietNam(tong + 1000 + 19000)}</p>
                         </div>
                     </div>
                 </section>
